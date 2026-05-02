@@ -3,5 +3,8 @@
   <ul>
     <li><a href="#this-too">This <strong>too</strong>.</a></li>
   </ul></li>
-  <li><a href="#veggies">Veggies</a></li>
+  <li><a href="#veggies">Veggies</a>
+  <ul>
+    <li><a href="#also-allowed">Also allowed</a></li>
+  </ul></li>
 </ul>

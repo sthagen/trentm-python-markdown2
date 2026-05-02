@@ -67,8 +67,9 @@ see <https://github.com/trentm/python-markdown2/wiki/Extras> for details):
 * link-shortrefs: allow shortcut reference links, not followed by `[]` or
   a link label.
 * markdown-file-links: Replace links to `.md` files with `.html` links
-* markdown-in-html: Allow the use of `markdown="1"` in a block HTML tag to
-  have markdown processing be done on its contents. Similar to
+* markdown-in-html: Allow the use of `markdown="1"` or simply a `markdown` boolean
+  attribute in a block HTML tag to have markdown processing be done on its
+  contents. Similar to
   <http://michelf.com/projects/php-markdown/extra/#markdown-attr> but with
   some limitations.
 * metadata: Extract metadata from a leading '---'-fenced block.
@@ -903,7 +904,8 @@ class Markdown:
         re.X | re.M)
 
     _html_markdown_attr_re = re.compile(
-        r'''\s+markdown=("1"|'1')''')
+        # markdown attr, with optional assignment to true, must be followed by whitespace/boundary/closing tag chars
+        r'''\s+markdown(?:="1"|='1'|=1)?(?![^\s/>\b])''')
     def _hash_html_block_sub(
         self,
         match: Union[re.Match[str], str],
@@ -927,20 +929,20 @@ class Markdown:
 
         if raw and self.safe_mode:
             html = self._sanitize_html(html)
-        elif 'markdown-in-html' in self.extras and 'markdown=' in html:
+        elif 'markdown-in-html' in self.extras and 'markdown' in html:
             first_line = html.split('\n', 1)[0]
             m = self._html_markdown_attr_re.search(first_line)
             if m:
                 lines = html.split('\n')
                 # if MD is on same line as opening tag then split across two lines
-                lines = list(filter(None, (re.split(r'(.*?<%s.*markdown=.*?>)' % tag, lines[0])))) + lines[1:]
+                lines = list(filter(None, (re.split(r'(.*?<%s.*markdown.*?>)' % tag, lines[0])))) + lines[1:]
                 # if MD on same line as closing tag, split across two lines
                 lines = lines[:-1] + list(filter(None, re.split(r'(\s*?</%s>.*?$)' % tag, lines[-1])))
                 # extract key sections of the match
                 first_line = lines[0]
                 middle = '\n'.join(lines[1:-1])
                 last_line = lines[-1]
-                # remove `markdown="1"` attr from tag
+                # remove `markdown="1"` or `markdown` attr from tag
                 first_line = first_line[:m.start()] + first_line[m.end():]
                 # hash the HTML segments to protect them
                 f_key = _hash_text(first_line)
