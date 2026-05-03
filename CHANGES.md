@@ -6,6 +6,7 @@
 - [pull #692] Fix XSS from code spans in link titles (#691)
 - [pull #695] Fix XSS issue from incomplete tags with no attributes (#694)
 - [pull #700] Fix XSS from code spans in image alt text (#699)
+- [pull #701] Allow boolean attribute syntax in `markdown-in-html` extra
 
 
 ## python-markdown2 2.5.5

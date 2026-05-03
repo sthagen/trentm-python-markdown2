@@ -17,7 +17,7 @@ And a paragraph
 And **this**.
 </div>
 
-<section markdown="1">
+<section markdown='1'>
 And even **this** in an HTML5 block tag.
 </section>
 
@@ -33,3 +33,18 @@ And even **this** in an HTML5 block tag.
 <td markdown="1">This is *true* markdown text.</td>
 </tr>
 </table>
+
+
+## Also allowed
+
+<div markdown>
+Markdown attr *without* a truthy assignment, for your convenience
+</div>
+
+<div markdown class="abcdef">
+Mix it with other attrs, _why don't you?_
+</div>
+
+<div my_markdown_attr>
+The check is smarter than `if 'markdown' in text`. This is invalid
+</div>
