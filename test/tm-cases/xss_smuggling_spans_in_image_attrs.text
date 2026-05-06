@@ -1,0 +1,5 @@
+![](x "`" onerror=alert(1)//`"")
+
+![`" onerror="alert(1)//`]()
+
+![A](B "<C D="E" onerror=alert(origin) >")

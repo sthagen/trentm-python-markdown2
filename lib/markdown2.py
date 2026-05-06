@@ -3262,8 +3262,8 @@ class LinkProcessor(Extra):
             )
             if title:
                 if self.md.safe_mode:
-                    # expose code span contents for escaping - fix #691
-                    title = self.md._unhash_html_spans(title, spans=False, code=True)
+                    # expose span contents for escaping - fix #691, #703
+                    title = self.md._unhash_html_spans(title, spans=True, code=True)
                 title = (
                     _xml_escape_attr(title)
                     .replace('*', self.md._escape_table['*'])
@@ -3282,8 +3282,8 @@ class LinkProcessor(Extra):
                     continue
 
                 if link_text and self.md.safe_mode:
-                    # expose code span contents for escaping - fix #699
-                    link_text = self.md._unhash_html_spans(link_text, spans=False, code=True)
+                    # expose span contents for escaping - fix #699, #703
+                    link_text = self.md._unhash_html_spans(link_text, spans=True, code=True)
 
                 start_idx -= 1
                 result, skip = self.process_image(url, title_str, link_text)
