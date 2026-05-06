@@ -1,1 +1,1 @@
-{"extras": ["latex","latex2mathml"]}
+{"extras": ["latex","latex2mathml", "fenced-code-blocks"]}

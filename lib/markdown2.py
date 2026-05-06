@@ -1984,7 +1984,7 @@ class Markdown:
             (?<!`)
             \1          # Matching closer
             (?!`)
-        ''', re.X | re.S)
+        ''', re.X)
 
     def _code_span_sub(self, match: re.Match[str]) -> str:
         c = match.group(2).strip(" \t")
